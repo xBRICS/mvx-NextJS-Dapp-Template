@@ -1,27 +1,30 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useGetIsLoggedIn } from '@/hooks';
 
 export default function NotFound() {
+  const t = useTranslations('errors.404');
+  const nav = useTranslations('navigation');
   const router = useRouter();
   const isLoggedIn = useGetIsLoggedIn();
 
   const handleNavigate = () => {
     const path = isLoggedIn ? '/dashboard' : '/';
-    // Since this is the root not-found, we'll default to 'en' locale
-    router.push(`/en${path}`);
+    const locale = window.location.pathname.split('/')[1] || 'en';
+    router.push(`/${locale}${path}`);
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-light-primary dark:bg-dark-primary">
       <div className="text-center max-w-2xl mx-auto">
         <h1 className="text-6xl font-bold mb-4 text-light-text dark:text-dark-text">
-          404 - Page Not Found
+          {t('title')}
         </h1>
         
         <p className="text-light-muted dark:text-dark-muted text-lg mb-8">
-          Oops! Looks like you've ventured into uncharted territory. Let's get you back on track.
+          {t('description')}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -38,7 +41,7 @@ export default function NotFound() {
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Go Back
+            {nav('goBack')}
           </button>
 
           {/* Home/Dashboard Button */}
@@ -62,10 +65,10 @@ export default function NotFound() {
                 }
               />
             </svg>
-            {isLoggedIn ? 'Back to Dashboard' : 'Back to Home'}
+            {isLoggedIn ? nav('toDashboard') : nav('toHome')}
           </button>
         </div>
       </div>
     </main>
   );
-}
+} 

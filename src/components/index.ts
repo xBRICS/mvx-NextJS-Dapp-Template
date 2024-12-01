@@ -8,3 +8,7 @@ export * from './TransactionsTracker';
 export * from './Layout';
 export * from './MissingNativeAuthError';
 export * from './Label';
+export * from './LoginOptions/LoginOptions';
+export * from './LoginPopup/LoginPopup';
+export * from './Connect';
+export * from './DebugBreakpoint';

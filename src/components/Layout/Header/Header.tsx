@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getWindowLocation } from '@/utils/sdkDappUtils';
 import { usePathname } from 'next/navigation';
+import { Connect } from '@/components/Connect';
 
 export const Header = () => {
   const router = useRouter();
@@ -18,18 +19,15 @@ export const Header = () => {
 
   const isUnlockRoute = Boolean(pathname === RouteNamesEnum.unlock);
 
-  const ConnectButton = isUnlockRoute ? null : (
-    <MxLink to={RouteNamesEnum.unlock}>Connect</MxLink>
-  );
+  const ConnectButton = isUnlockRoute ? null : <Connect />;
 
-  const onRedirect = () => {
-    router.replace(RouteNamesEnum.unlock);
-  };
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const { href } = getWindowLocation();
     sessionStorage.clear();
-    logout(href, onRedirect, false);
+    await logout(href, () => {
+      router.replace(RouteNamesEnum.home);
+    }, false);
+    window.location.reload();
   };
 
   return (

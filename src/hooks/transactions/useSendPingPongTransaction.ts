@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   deleteTransactionToast,
   removeAllSignedTransactions,
@@ -23,6 +23,7 @@ import {
 import { newTransaction } from '@/helpers/sdkDappHelpers';
 import { Transaction } from '@/types/sdkCoreTypes';
 import { Address } from '@multiversx/sdk-core';
+import { safeStorage } from '@/utils/storage';
 
 type PingPongTransactionProps = {
   type: SessionEnum;
@@ -43,9 +44,7 @@ const PONG_TRANSACTION_INFO = {
 export const useSendPingPongTransaction = ({
   type
 }: PingPongTransactionProps) => {
-  const [pingPongSessionId, setPingPongSessionId] = useState(
-    sessionStorage.getItem(type)
-  );
+  const [pingPongSessionId, setPingPongSessionId] = useState<string | null>(null);
 
   const { network } = useGetNetworkConfig();
   const { address, account } = useGetAccountInfo();
@@ -78,7 +77,7 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PING_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
@@ -102,7 +101,7 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PONG_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
@@ -130,7 +129,7 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PING_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
@@ -158,7 +157,7 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PONG_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
@@ -174,7 +173,7 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PING_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
@@ -190,11 +189,15 @@ export const useSendPingPongTransaction = ({
         transactionsDisplayInfo: PONG_TRANSACTION_INFO
       });
 
-      sessionStorage.setItem(type, sessionId);
+      safeStorage.setItem(type, sessionId);
       setPingPongSessionId(sessionId);
     },
     []
   );
+
+  useEffect(() => {
+    setPingPongSessionId(safeStorage.getItem(type));
+  }, [type]);
 
   return {
     sendPingTransaction,

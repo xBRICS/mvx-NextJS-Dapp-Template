@@ -18,13 +18,15 @@ export const Widget = ({
     : '';
 
   return (
-    <Card
-      title={title}
-      description={description}
-      reference={reference}
-      anchor={anchor}
-    >
-      <MxWidget callbackRoute={callbackRoute} {...props} />
-    </Card>
+    <div className="p-6 rounded-xl 
+                  bg-light-secondary dark:bg-dark-secondary
+                  border border-light-accent/10 dark:border-dark-accent/10">
+      <h3 className="text-lg font-medium mb-4 text-light-text dark:text-dark-text">
+        {title}
+      </h3>
+      <div className="text-light-muted dark:text-dark-muted">
+        <MxWidget callbackRoute={callbackRoute} {...props} />
+      </div>
+    </div>
   );
 };

@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-light-primary dark:bg-dark-primary 
+           text-light-text dark:text-dark-text
+           transition-colors duration-300;
+  }
+}
+
+@layer components {
+  /* Button Variants */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium
+           transition-all duration-300
+           transform hover:scale-[1.02]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-light-accent dark:bg-dark-accent
+           text-white
+           hover:shadow-lg hover:shadow-light-accent/20 dark:hover:shadow-dark-accent/20;
+  }
+
+  .btn-secondary {
+    @apply btn bg-light-secondary dark:bg-dark-secondary
+           text-light-text dark:text-dark-text
+           hover:bg-light-muted/10 dark:hover:bg-dark-muted/10;
+  }
+
+  .btn-outline {
+    @apply btn border-2 
+           border-light-accent dark:border-dark-accent
+           text-light-accent dark:text-dark-accent
+           hover:bg-light-accent/10 dark:hover:bg-dark-accent/10;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply bg-light-secondary dark:bg-dark-secondary
+           rounded-xl shadow-lg
+           border border-light-muted/10 dark:border-dark-muted/10
+           transition-all duration-300
+           hover:shadow-xl;
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply bg-light-primary/70 dark:bg-dark-primary/70
+           backdrop-blur-lg
+           border border-light-muted/20 dark:border-dark-muted/20
+           shadow-xl;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply text-light-text dark:text-dark-text
+           hover:text-light-accent dark:hover:text-dark-accent
+           transition-colors duration-300;
+  }
+
+  /* Form Elements */
+  .input {
+    @apply px-4 py-2 rounded-lg
+           bg-light-secondary dark:bg-dark-secondary
+           border border-light-muted/20 dark:border-dark-muted/20
+           text-light-text dark:text-dark-text
+           focus:outline-none focus:ring-2
+           focus:ring-light-accent dark:focus:ring-dark-accent
+           transition-all duration-300;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  @apply w-5 h-5 border-2 rounded-full
+         border-light-muted/20 dark:border-dark-muted/20
+         border-t-light-accent dark:border-t-dark-accent
+         animate-spin;
+}

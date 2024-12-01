@@ -1,35 +1,23 @@
 import '../styles/globals.css';
-import { Suspense } from 'react';
-import type { ReactNode } from 'react';
-import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Layout } from '@/components/Layout';
-import App from './index';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Template dApp Next.js',
-  description:
-    'A basic implementation of MultiversX dApp providing the basics for MultiversX authentication and TX signing.',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1
-  },
-  icons: {
-    icon: '/favicon.ico'
-  }
+export const metadata = {
+  title: 'DynamoDAO',
+  description: 'A revolutionary DeFi ecosystem with stable, asset-backed digital currency',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang='en' className={inter.className}>
-      <body>
-        <App>
-          <Suspense>
-            <Layout>{children}</Layout>
-          </Suspense>
-        </App>
+    <html lang="en" className={inter.className}>
+      <body className="overflow-x-hidden">
+        {children}
+        <div id="modal-root" className="relative z-50" />
       </body>
     </html>
   );

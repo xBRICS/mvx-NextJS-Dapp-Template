@@ -1,29 +1,34 @@
 'use client';
-import { useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useGetIsLoggedIn } from '@/hooks';
 import { RouteNamesEnum } from '@/localConstants';
-import { redirect } from 'next/navigation';
 
-interface AuthRedirectWrapperPropsType extends PropsWithChildren {
+interface AuthRedirectWrapperProps {
+  children: ReactNode;
   requireAuth?: boolean;
 }
 
-export const AuthRedirectWrapper = ({
+export const AuthRedirectWrapper: FC<AuthRedirectWrapperProps> = ({ 
   children,
   requireAuth = true
-}: AuthRedirectWrapperPropsType) => {
+}) => {
+  const router = useRouter();
   const isLoggedIn = useGetIsLoggedIn();
 
   useEffect(() => {
-    if (isLoggedIn && !requireAuth) {
-      redirect(RouteNamesEnum.dashboard);
-    }
+    const timer = setTimeout(() => {
+      if (!isLoggedIn && requireAuth) {
+        router.replace('/');
+      }
+    }, 100);
 
-    if (!isLoggedIn && requireAuth) {
-      redirect(RouteNamesEnum.unlock);
-    }
-  }, [isLoggedIn, requireAuth]);
+    return () => clearTimeout(timer);
+  }, [isLoggedIn, requireAuth, router]);
+
+  if (!isLoggedIn && requireAuth) {
+    return null;
+  }
 
   return <>{children}</>;
 };

@@ -6,8 +6,6 @@ import {
   NotificationModal,
   SignTransactionsModals,
   DappProvider
-  // uncomment this to use the custom transaction tracker
-  // TransactionsTracker
 } from '@/components';
 import {
   apiTimeout,
@@ -31,21 +29,7 @@ const AppContent = ({ children }: PropsWithChildren) => {
       dappConfig={{
         isSSR: true,
         shouldUseWebViewProvider: true,
-        logoutRoute: RouteNamesEnum.unlock
-      }}
-      customComponents={{
-        transactionTracker: {
-          // uncomment this to use the custom transaction tracker
-          // component: TransactionsTracker,
-          props: {
-            onSuccess: (sessionId: string) => {
-              console.log(`Session ${sessionId} successfully completed`);
-            },
-            onFail: (sessionId: string, errorMessage: string) => {
-              console.log(`Session ${sessionId} failed. ${errorMessage ?? ''}`);
-            }
-          }
-        }
+        logoutRoute: RouteNamesEnum.home
       }}
     >
       <AxiosInterceptorContext.Listener>

@@ -1,0 +1,51 @@
+{
+  "common": {
+    "title": "TEMPLATE",
+    "connect": "Conectare",
+    "disconnect": "Deconectare",
+    "dashboard": "Panou",
+    "settings": "Setări",
+    "language": "Limbă",
+    "theme": {
+      "light": "Mod Luminos",
+      "dark": "Mod Întunecat"
+    }
+  },
+  "home": {
+    "title": "Bun venit la TEMPLATE",
+    "description": "Text descriere șablon aici"
+  },
+  "dashboard": {
+    "overview": "LINK 1",
+    "transactions": "LINK 2",
+    "tokens": "LINK 3",
+    "nfts": "LINK 4",
+    "smartContracts": "LINK 5",
+    "staking": "LINK 6",
+    "governance": "LINK 7",
+    "analytics": "LINK 8",
+    "networkStatus": "Stare Rețea",
+    "network": "Nume Rețea",
+    "widgets": {
+      "widget1": {
+        "title": "Widget 1",
+        "description": "Descriere Widget 1"
+      },
+      "widget2": {
+        "title": "Widget 2",
+        "description": "Descriere Widget 2"
+      }
+    }
+  },
+  "navigation": {
+    "goBack": "Înapoi",
+    "toHome": "Înapoi Acasă",
+    "toDashboard": "Înapoi la Panou"
+  },
+  "errors": {
+    "404": {
+      "title": "404 - Pagina nu există",
+      "description": "Pagina nu a fost găsită. Verificați URL-ul sau navigați înapoi."
+    }
+  }
+} 

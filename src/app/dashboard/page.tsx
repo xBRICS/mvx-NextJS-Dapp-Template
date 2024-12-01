@@ -1,3 +1,4 @@
+'use client';
 import { contractAddress } from '@/config';
 import {
   Account,
@@ -9,10 +10,11 @@ import {
   PingPongService,
   Transactions
 } from './widgets';
-import { AuthRedirectWrapper } from '@/wrappers';
+import { AuthRedirectWrapper } from '@/wrappers/AuthRedirectWrapper';
 import { ClientHooks } from '@/components/ClientHooks';
 import { Widget } from './components';
 import { WidgetType } from '@/types/widget.types';
+import { useTranslations } from 'next-intl';
 
 const WIDGETS: WidgetType[] = [
   {
@@ -87,17 +89,30 @@ const WIDGETS: WidgetType[] = [
   }
 ];
 
-export default function Dashboard() {
+const DashboardPage = () => {
+  const t = useTranslations('dashboard');
+
   return (
-    <>
-      <ClientHooks />
-      <AuthRedirectWrapper>
-        <div className='flex flex-col gap-6 max-w-3xl w-full'>
-          {WIDGETS.map((element) => (
-            <Widget key={element.title} {...element} />
-          ))}
+    <AuthRedirectWrapper requireAuth={true}>
+      <>
+        <ClientHooks />
+        <div className="bg-light-primary dark:bg-dark-primary min-h-screen p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-light-secondary dark:bg-dark-secondary 
+                          border border-light-accent/10 dark:border-dark-accent/10">
+              <h2 className="text-xl font-bold mb-4 text-light-text dark:text-dark-text">
+                Overview
+              </h2>
+              <p className="text-light-muted dark:text-dark-muted">
+                Your dashboard content here
+              </p>
+            </div>
+            {/* Add more dashboard widgets */}
+          </div>
         </div>
-      </AuthRedirectWrapper>
-    </>
+      </>
+    </AuthRedirectWrapper>
   );
-}
+};
+
+export default DashboardPage;
